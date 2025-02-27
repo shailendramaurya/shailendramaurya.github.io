@@ -1,0 +1,33 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Ztag from "@/components/Blog/Ztag.astro";
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title}>
+  <div class="text-stone-800 dark:text-stone-200">
+    <div class="py-2">
+      <div class="font-black text-4xl mb-6">
+        {frontmatter.title}
+      </div>
+      <div class="mb-4 font-thin text-stone-600 dark:text-stone-400">
+        Publish on {(frontmatter.pubDate ?? "").split("T")[0]}
+      </div>
+      <div class="flex gap-2 mb-4">
+        {frontmatter.tags.map((tag: string) => <Ztag tag={tag} />)}
+      </div>
+      <div class="text-lg italic text-stone-600 dark:text-stone-400">
+        {frontmatter.description}
+      </div>
+      <div
+        class="h-4 border-b-4 my-4 border-dashed border-stone-500 dark:border-stone-400"
+      >
+      </div>
+    </div>
+    <article
+      class="prose dark:prose-invert prose-stone md:prose-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl"
+    >
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,49 @@
+name: Build and Deploy to gh-pages
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install, build, and output site
+        uses: withastro/action@v3
+        with:
+          path: .
+
+      - name: Push built files to gh-pages
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          
+          git checkout --orphan gh-pages
+          
+          git rm -rf .
+          
+          mv dist/* .
+          
+          echo "shailen.dedyn.io" > CNAME
+          
+          touch .nojekyll
+          
+          cat <<EOT > .gitignore
+          node_modules/
+          .astro/
+          .github/
+          .gitignore
+          EOT
+          
+          git add .
+          git commit -m "Deploy Astro site"
+          git push --force origin gh-pages

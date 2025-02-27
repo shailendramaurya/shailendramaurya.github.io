@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Hack';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/HackDejavu.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hack';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/HackDejavuBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hack';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url('/fonts/HackDejavuItalic.woff2') format('woff2');
+}
+
+body {
+  @apply font-sans antialiased;
+  @apply flex flex-col;
+  @apply bg-stone-100 dark:bg-stone-900;
+  @apply text-black/50 dark:text-white/65;
+  @apply overflow-y-scroll
+}
